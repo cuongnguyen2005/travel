@@ -53,6 +53,7 @@ class _SignupPageState extends State<SignupPage> {
   bool isShowPass = true;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.lightgrey,
       body: Stack(
@@ -70,12 +71,13 @@ class _SignupPageState extends State<SignupPage> {
             padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
-                const SizedBox(height: 200),
+                SizedBox(height: size.height * .3 + Constants.bigPadding),
                 //
                 Flexible(
                   child: Form(
                     key: formKey,
                     child: ListView(
+                      padding: EdgeInsets.zero,
                       children: [
                         TextForm(
                           controller: nameController,

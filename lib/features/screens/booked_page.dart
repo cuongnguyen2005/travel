@@ -52,6 +52,7 @@ class _BookedPageState extends State<BookedPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -60,7 +61,7 @@ class _BookedPageState extends State<BookedPage> {
             children: [
               //title
               Container(
-                padding: const EdgeInsets.only(top: 60),
+                padding: EdgeInsets.only(top: size.height * .1),
                 child: Center(
                     child: Text(
                   'Booked',

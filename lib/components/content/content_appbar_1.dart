@@ -21,12 +21,14 @@ class ContentAppBar1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         isFull != true
             ? Container(
-                padding: EdgeInsets.only(top: 60, left: Constants.bigPadding),
+                padding: EdgeInsets.only(
+                    top: size.height * .1, left: Constants.bigPadding),
                 child: Row(
                   children: [
                     InkWell(
@@ -51,7 +53,7 @@ class ContentAppBar1 extends StatelessWidget {
               )
             : Container(
                 padding: EdgeInsets.only(
-                    top: 60,
+                    top: size.height * .1,
                     left: Constants.bigPadding,
                     right: Constants.bigPadding),
                 child: Column(

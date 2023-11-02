@@ -82,6 +82,7 @@ class _CheckoutHotelsState extends State<CheckoutHotels> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -95,11 +96,11 @@ class _CheckoutHotelsState extends State<CheckoutHotels> {
             padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
-                const SizedBox(height: 200),
+                SizedBox(height: size.height * 0.3 + Constants.bigPadding),
                 //
                 Flexible(
                   child: ListView(
-                    padding: EdgeInsets.only(top: Constants.bigPadding),
+                    padding: EdgeInsets.zero,
                     children: [
                       Container(
                         padding: EdgeInsets.all(Constants.mediumPadding),

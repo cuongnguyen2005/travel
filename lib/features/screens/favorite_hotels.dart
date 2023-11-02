@@ -37,6 +37,7 @@ class _FavoritePageState extends State<FavoritePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -45,7 +46,7 @@ class _FavoritePageState extends State<FavoritePage> {
             children: [
               //title
               Container(
-                padding: const EdgeInsets.only(top: 60),
+                padding: EdgeInsets.only(top: size.height * 0.1),
                 child: Center(
                     child: Text(
                   'Yêu thích',

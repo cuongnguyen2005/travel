@@ -31,7 +31,12 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
       bottomNavigationBar: Container(
         color: AppColor.white,
         child: Padding(
-          padding: EdgeInsets.all(Constants.mediumPadding),
+          padding: EdgeInsets.only(
+            left: Constants.bigPadding,
+            right: Constants.bigPadding,
+            top: Constants.mediumPadding,
+            bottom: Constants.biggerPadding,
+          ),
           child: GNav(
             selectedIndex: currentIndex,
             padding: EdgeInsets.all(Constants.mediumPadding),

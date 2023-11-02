@@ -56,16 +56,18 @@ class _HomePageState extends State<HomePage> {
           //background appbar
           const AppBarWidget(),
 
+          //header
           Container(
-            padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
+            padding: EdgeInsets.only(
+                left: Constants.bigPadding,
+                right: Constants.bigPadding,
+                top: size.height * 0.1),
             child: Column(
               children: [
-                const SizedBox(height: 60),
-                //content app bar
                 Row(
                   children: [
                     Expanded(
-                      flex: 5,
+                      flex: 4,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -107,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: size.height * 0.05),
                 //search bar
                 TextForm(
                   controller: searchController,
@@ -115,8 +117,19 @@ class _HomePageState extends State<HomePage> {
                   text: 'Tìm kiếm địa điểm đến của bạn',
                   prefixIcon: const Icon(Icons.search),
                 ),
-                SizedBox(height: Constants.bigPadding),
+              ],
+            ),
+          ),
 
+          //body
+          Container(
+            padding: EdgeInsets.only(
+              left: Constants.bigPadding,
+              right: Constants.bigPadding,
+              top: size.height * 0.3 + Constants.bigPadding,
+            ),
+            child: Column(
+              children: [
                 Flexible(
                   child: ListView(
                     padding: EdgeInsets.zero,

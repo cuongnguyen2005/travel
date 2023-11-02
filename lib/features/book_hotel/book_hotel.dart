@@ -43,6 +43,7 @@ class _BookHotelState extends State<BookHotel> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -56,11 +57,11 @@ class _BookHotelState extends State<BookHotel> {
             padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
-                const SizedBox(height: 200),
+                SizedBox(height: size.height * .3 + Constants.bigPadding),
                 //
                 Flexible(
                   child: ListView(
-                    padding: EdgeInsets.only(top: Constants.smallPadding),
+                    padding: EdgeInsets.zero,
                     children: [
                       Container(
                         padding: EdgeInsets.all(Constants.mediumPadding),

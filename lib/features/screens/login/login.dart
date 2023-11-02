@@ -47,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.lightgrey,
       body: Stack(
@@ -62,12 +63,13 @@ class _LoginPageState extends State<LoginPage> {
             padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
-                const SizedBox(height: 200),
+                SizedBox(height: size.height * .3 + Constants.bigPadding),
                 //
                 Flexible(
                   child: Form(
                     key: formKey,
                     child: ListView(
+                      padding: EdgeInsets.zero,
                       children: [
                         TextForm(
                           controller: usernameController,

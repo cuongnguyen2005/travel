@@ -36,12 +36,13 @@ class _PersonPageState extends State<PersonPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           const AppBarWidget(),
           Container(
-            padding: const EdgeInsets.only(top: 45),
+            padding: EdgeInsets.only(top: size.height * 0.1),
             width: double.infinity,
             child: CircleAvatar(
               radius: 70,
@@ -50,7 +51,7 @@ class _PersonPageState extends State<PersonPage> {
           ),
           Container(
             padding: EdgeInsets.only(
-                top: 220,
+                top: size.height * 0.3 + Constants.bigPadding,
                 left: Constants.bigPadding,
                 right: Constants.bigPadding),
             child: Column(
