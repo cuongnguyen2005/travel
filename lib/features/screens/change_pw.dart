@@ -53,6 +53,7 @@ class _ChangePasswordState extends State<ChangePassword> {
   bool isShowConfirmPass = true;
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: AppColor.lightgrey,
       body: Stack(
@@ -69,12 +70,13 @@ class _ChangePasswordState extends State<ChangePassword> {
             padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
-                const SizedBox(height: 200),
+                SizedBox(height: size.height * .3 + Constants.bigPadding),
                 //
                 Flexible(
                   child: Form(
                     key: formKey,
                     child: ListView(
+                      padding: EdgeInsets.zero,
                       children: [
                         PasswordForm(
                           controller: oldPwController,
@@ -114,12 +116,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                           validator: validateConfirmPassword,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
-                        const SizedBox(height: 40),
-                        ButtonPrimary(
-                          nameButton: 'Cập nhật',
-                          onTap: onTapUpdate,
-                        ),
-                        SizedBox(height: Constants.bigPadding),
                       ],
                     ),
                   ),
@@ -128,6 +124,13 @@ class _ChangePasswordState extends State<ChangePassword> {
             ),
           ),
         ],
+      ),
+      bottomSheet: Container(
+        padding: EdgeInsets.all(Constants.bigPadding),
+        child: ButtonPrimary(
+          nameButton: 'Cập nhật',
+          onTap: onTapUpdate,
+        ),
       ),
     );
   }
