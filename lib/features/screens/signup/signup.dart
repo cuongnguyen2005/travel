@@ -6,8 +6,8 @@ import 'package:travel/components/dialog/dialog.dart';
 import 'package:travel/components/textformfield/pw_form.dart';
 import 'package:travel/components/textformfield/text_form.dart';
 import 'package:travel/features/screens/login/login.dart';
-import 'package:travel/features/widgets/appbar.dart';
-import 'package:travel/features/widgets/content_appbar_1.dart';
+import 'package:travel/components/appbar.dart';
+import 'package:travel/components/content/content_appbar_1.dart';
 import 'package:travel/models/user_account.dart';
 import 'package:travel/resource/color.dart';
 import 'package:travel/resource/constant.dart';
@@ -35,7 +35,7 @@ class _SignupPageState extends State<SignupPage> {
   List<UserAccount> userAccountList = [];
 
   void getUserList() async {
-    userAccountList = await getUserAccount();
+    userAccountList = await SharedPreferencesLocal.getUserAccount();
   }
 
   //hàm thêm mới 1 account
@@ -43,7 +43,7 @@ class _SignupPageState extends State<SignupPage> {
     setState(() {
       userAccountList.add(newUser);
     });
-    saveUserAccount(userAccountList);
+    SharedPreferencesLocal.saveUserAccount(userAccountList);
   }
 
   final nameController = TextEditingController();
@@ -54,7 +54,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightgrey,
+      backgroundColor: AppColor.lightgrey,
       body: Stack(
         children: [
           //
@@ -67,7 +67,7 @@ class _SignupPageState extends State<SignupPage> {
             onTap: onTapBack,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: bigPadding),
+            padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
                 const SizedBox(height: 200),
@@ -84,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
                           validator: ValidateUntils.validateName,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
                         TextForm(
                           controller: usernameController,
                           autofocus: false,
@@ -92,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                           validator: ValidateUntils.validateEmail,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
                         PasswordForm(
                           controller: pwController,
                           obscureText: isShowPass,
@@ -110,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                           nameButton: 'Đăng kí',
                           onTap: onTapSignup,
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
 
                         //
                         Row(
@@ -120,7 +120,7 @@ class _SignupPageState extends State<SignupPage> {
                               child: Container(
                                 width: double.infinity,
                                 height: 1,
-                                color: grey,
+                                color: AppColor.grey,
                               ),
                             ),
                             Expanded(
@@ -137,25 +137,26 @@ class _SignupPageState extends State<SignupPage> {
                               child: Container(
                                 width: double.infinity,
                                 height: 1,
-                                color: grey,
+                                color: AppColor.grey,
                               ),
                             )
                           ],
                         ),
 
                         //
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
                         Row(
                           children: [
                             Expanded(
                               flex: 1,
                               child: Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(mediumPadding),
+                                padding:
+                                    EdgeInsets.all(Constants.mediumPadding),
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(bigBorderRadius),
-                                    color: white),
+                                    borderRadius: BorderRadius.circular(
+                                        Constants.bigBorderRadius),
+                                    color: AppColor.white),
                                 child: Center(
                                     child: Text(
                                   'Google',
@@ -163,16 +164,17 @@ class _SignupPageState extends State<SignupPage> {
                                 )),
                               ),
                             ),
-                            SizedBox(width: bigPadding),
+                            SizedBox(width: Constants.bigPadding),
                             Expanded(
                               flex: 1,
                               child: Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(mediumPadding),
+                                padding:
+                                    EdgeInsets.all(Constants.mediumPadding),
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(bigBorderRadius),
-                                    color: blue),
+                                    borderRadius: BorderRadius.circular(
+                                        Constants.bigBorderRadius),
+                                    color: AppColor.blue),
                                 child: Center(
                                     child: Text(
                                   'Facebook',

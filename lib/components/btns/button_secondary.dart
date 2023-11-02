@@ -21,11 +21,11 @@ class ButtonSecondary extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: mediumPadding),
+        padding: EdgeInsets.symmetric(vertical: Constants.mediumPadding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(bigBorderRadius),
-          color: white,
-          border: Border.all(color: themeColor, width: 2),
+          borderRadius: BorderRadius.circular(Constants.bigBorderRadius),
+          color: AppColor.white,
+          border: Border.all(color: AppColor.themeColor, width: 2),
         ),
         child: Text(
           nameButton,

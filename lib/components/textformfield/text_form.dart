@@ -17,6 +17,8 @@ class TextForm extends StatelessWidget {
     this.keyboardType,
     this.suffixIcon,
     this.prefixIcon,
+    this.onChanged,
+    this.onTap,
   });
 
   final text;
@@ -28,10 +30,14 @@ class TextForm extends StatelessWidget {
   final TextInputType? keyboardType;
   Widget? suffixIcon;
   Widget? prefixIcon;
+  void Function(String)? onChanged;
+  void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
+      onTap: onTap,
       keyboardType: keyboardType,
       initialValue: initialValue,
       autofocus: autofocus,
@@ -43,11 +49,11 @@ class TextForm extends StatelessWidget {
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
         filled: true,
-        fillColor: white,
-        contentPadding: EdgeInsets.all(mediumPadding),
-        labelText: text,
+        fillColor: AppColor.white,
+        contentPadding: EdgeInsets.all(Constants.mediumPadding),
+        hintText: text,
         border: OutlineInputBorder(
-          borderSide: BorderSide(width: 1, color: white),
+          borderSide: BorderSide(width: 1, color: AppColor.white),
           borderRadius: BorderRadius.circular(12),
         ),
       ),

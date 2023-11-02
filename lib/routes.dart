@@ -1,18 +1,20 @@
 // ignore_for_file: unused_import
 
-import 'package:travel/features/screens/all_places_page.dart';
-import 'package:travel/features/screens/book_flight.dart';
-import 'package:travel/features/screens/book_hotel.dart';
+import 'package:travel/features/book_hotel/all_hotels.dart';
+import 'package:travel/features/book_flight/book_flight.dart';
+import 'package:travel/features/book_hotel/book_hotel.dart';
 import 'package:travel/features/screens/bottom_navigation.dart';
-import 'package:travel/features/screens/checkout_flight.dart';
-import 'package:travel/features/screens/detail_place.dart';
+import 'package:travel/features/book_flight/checkout_flight.dart';
+import 'package:travel/features/book_hotel/checkout_hotel.dart';
+import 'package:travel/features/book_hotel/detail_hotels.dart';
+import 'package:travel/features/screens/change_pw.dart';
 import 'package:travel/features/screens/home.dart';
 import 'package:travel/features/screens/intro.dart';
 import 'package:travel/features/screens/login/login.dart';
-import 'package:travel/features/screens/result_flight.dart';
+import 'package:travel/features/book_flight/result_flight.dart';
 import 'package:travel/features/screens/signup/signup.dart';
 import 'package:travel/features/screens/splash_screen.dart';
-import 'package:travel/models/places.dart';
+import 'package:travel/models/hotels.dart';
 import 'package:travel/models/user_account.dart';
 import 'package:flutter/material.dart';
 
@@ -54,24 +56,10 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
               arg: arg,
             ));
   }
-  if (settings.name == AllPlacesPage.routeName) {
-    final AllPlacesPageArg arg = settings.arguments as AllPlacesPageArg;
+  if (settings.name == AllHotelsPage.routeName) {
+    final AllHotelsArg arg = settings.arguments as AllHotelsArg;
     return MaterialPageRoute(
-        builder: (_) => AllPlacesPage(
-              arg: arg,
-            ));
-  }
-  if (settings.name == BookFlight.routeName) {
-    final BookFlightArg arg = settings.arguments as BookFlightArg;
-    return MaterialPageRoute(
-        builder: (_) => BookFlight(
-              arg: arg,
-            ));
-  }
-  if (settings.name == ResultFlight.routeName) {
-    final ResultFlightArg arg = settings.arguments as ResultFlightArg;
-    return MaterialPageRoute(
-        builder: (_) => ResultFlight(
+        builder: (_) => AllHotelsPage(
               arg: arg,
             ));
   }
@@ -82,13 +70,41 @@ Route<dynamic>? Function(RouteSettings)? onGenerateRoute = (settings) {
               arg: arg,
             ));
   }
-  if (settings.name == CheckoutFlight.routeName) {
-    final CheckoutFlightArg arg = settings.arguments as CheckoutFlightArg;
+  if (settings.name == CheckoutHotels.routeName) {
+    final CheckoutHotelsArg arg = settings.arguments as CheckoutHotelsArg;
     return MaterialPageRoute(
-        builder: (_) => CheckoutFlight(
+        builder: (_) => CheckoutHotels(
               arg: arg,
             ));
   }
+  if (settings.name == ChangePassword.routeName) {
+    final UserAccount arg = settings.arguments as UserAccount;
+    return MaterialPageRoute(
+        builder: (_) => ChangePassword(
+              user: arg,
+            ));
+  }
+  // if (settings.name == CheckoutFlight.routeName) {
+  //   final CheckoutFlightArg arg = settings.arguments as CheckoutFlightArg;
+  //   return MaterialPageRoute(
+  //       builder: (_) => CheckoutFlight(
+  //             arg: arg,
+  //           ));
+  // }
+  // if (settings.name == BookFlight.routeName) {
+  //   final BookFlightArg arg = settings.arguments as BookFlightArg;
+  //   return MaterialPageRoute(
+  //       builder: (_) => BookFlight(
+  //             arg: arg,
+  //           ));
+  // }
+  // if (settings.name == ResultFlight.routeName) {
+  //   final ResultFlightArg arg = settings.arguments as ResultFlightArg;
+  //   return MaterialPageRoute(
+  //       builder: (_) => ResultFlight(
+  //             arg: arg,
+  //           ));
+  // }
 
   return null;
 };

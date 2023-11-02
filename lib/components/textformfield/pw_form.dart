@@ -35,7 +35,7 @@ class PasswordForm extends StatelessWidget {
       style: tStyle.HS14Medium(),
       decoration: InputDecoration(
         filled: true,
-        fillColor: white,
+        fillColor: AppColor.white,
         suffixIcon: InkWell(
           onTap: onTapHidePw,
           child: Padding(
@@ -51,9 +51,9 @@ class PasswordForm extends StatelessWidget {
           ),
         ),
         contentPadding: EdgeInsets.all(16),
-        labelText: text,
+        hintText: text,
         border: OutlineInputBorder(
-          borderSide: BorderSide(width: 1, color: white),
+          borderSide: BorderSide(width: 0.1, color: AppColor.white),
           borderRadius: BorderRadius.circular(12),
         ),
       ),

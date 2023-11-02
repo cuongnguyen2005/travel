@@ -21,10 +21,10 @@ class ButtonPrimary extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        padding: EdgeInsets.symmetric(vertical: mediumPadding),
+        padding: EdgeInsets.symmetric(vertical: Constants.mediumPadding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(bigBorderRadius),
-          color: themeColor,
+          borderRadius: BorderRadius.circular(Constants.bigBorderRadius),
+          color: AppColor.themeColor,
         ),
         child: Text(
           nameButton,

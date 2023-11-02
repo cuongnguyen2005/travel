@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:travel/components/textformfield/text_form.dart';
-import 'package:travel/features/screens/all_places_page.dart';
-import 'package:travel/features/screens/detail_place.dart';
-import 'package:travel/features/widgets/appbar.dart';
-import 'package:travel/features/widgets/button_home.dart';
-import 'package:travel/models/places.dart';
+import 'package:travel/features/book_hotel/all_hotels.dart';
+import 'package:travel/features/book_hotel/detail_hotels.dart';
+import 'package:travel/components/appbar.dart';
+import 'package:travel/components/content/button_home.dart';
+import 'package:travel/models/hotels.dart';
 import 'package:travel/models/user_account.dart';
 import 'package:travel/resource/color.dart';
 import 'package:travel/resource/constant.dart';
@@ -21,6 +23,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    getList();
+    sufleList();
+    super.initState();
+  }
+
+  List<Hotels> listHotel = [];
+  void getList() {
+    setState(() {
+      listHotel = hotels;
+    });
+  }
+
+  void sufleList() {
+    setState(() {
+      listHotel.shuffle();
+    });
+  }
+
   final searchController = TextEditingController();
   bool isDomesticList = false;
   bool isAboardList = false;
@@ -35,48 +57,53 @@ class _HomePageState extends State<HomePage> {
           const AppBarWidget(),
 
           Container(
-            padding: EdgeInsets.symmetric(horizontal: bigPadding),
+            padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
                 const SizedBox(height: 60),
                 //content app bar
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Xin chào, ${widget.user.name}!',
-                          style: tStyle.HS30(),
-                        ),
-                        const SizedBox(height: 15),
-                        Text(
-                          'Bạn sẽ đi đâu tiếp theo?',
-                          style: tStyle.HS12W(),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(smallestPadding),
-                          margin: EdgeInsets.all(smallestPadding),
-                          decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(smallestPadding),
-                              color: white),
-                          child: Icon(
-                            Icons.notifications,
-                            color: themeColor,
-                            size: 40,
+                    Expanded(
+                      flex: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Xin chào, ${widget.user.name}!',
+                            style: tStyle.HS30(),
                           ),
-                        ),
-                        CircleAvatar(
-                          radius: 7,
-                          backgroundColor: pink,
-                        )
-                      ],
+                          const SizedBox(height: 15),
+                          Text(
+                            'Bạn sẽ đi đâu tiếp theo?',
+                            style: tStyle.HS12W(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Stack(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(Constants.smallestPadding),
+                            margin: EdgeInsets.all(Constants.smallestPadding),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                    Constants.smallestPadding),
+                                color: AppColor.white),
+                            child: Icon(
+                              Icons.notifications,
+                              color: AppColor.themeColor,
+                              size: 40,
+                            ),
+                          ),
+                          CircleAvatar(
+                            radius: 7,
+                            backgroundColor: AppColor.pink,
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -88,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                   text: 'Tìm kiếm địa điểm đến của bạn',
                   prefixIcon: const Icon(Icons.search),
                 ),
-                SizedBox(height: bigPadding),
+                SizedBox(height: Constants.bigPadding),
 
                 Flexible(
                   child: ListView(
@@ -104,62 +131,44 @@ class _HomePageState extends State<HomePage> {
                               onTap: () {
                                 setState(() {
                                   Navigator.pushNamed(
-                                      context, AllPlacesPage.routeName,
-                                      arguments: AllPlacesPageArg(
-                                        isDomesticList: true,
-                                        isAboardList: false,
+                                      context, AllHotelsPage.routeName,
+                                      arguments: AllHotelsArg(
                                         uid: widget.user.uid,
                                       ));
                                 });
                               },
-                              text: 'Nội địa',
-                              colorButton: orange.withOpacity(0.2),
+                              text: 'Khách sạn',
+                              colorButton: AppColor.orange.withOpacity(0.2),
                               image: 'assets/images/iconHome1.png',
                             ),
                           ),
-                          SizedBox(width: bigPadding),
+                          SizedBox(width: Constants.bigPadding),
                           Expanded(
                             flex: 1,
                             child: ButtonHome(
                               onTap: () {
-                                setState(() {
-                                  Navigator.pushNamed(
-                                      context, AllPlacesPage.routeName,
-                                      arguments: AllPlacesPageArg(
-                                        isDomesticList: false,
-                                        isAboardList: true,
-                                        uid: widget.user.uid,
-                                      ));
-                                });
+                                setState(() {});
                               },
-                              text: 'Quốc tế',
-                              colorButton: pink.withOpacity(0.2),
+                              text: 'Chuyến bay',
+                              colorButton: AppColor.pink.withOpacity(0.2),
                               image: 'assets/images/iconHome2.png',
                             ),
                           ),
-                          SizedBox(width: bigPadding),
+                          SizedBox(width: Constants.bigPadding),
                           Expanded(
                             flex: 1,
                             child: ButtonHome(
                               onTap: () {
-                                setState(() {
-                                  Navigator.pushNamed(
-                                      context, AllPlacesPage.routeName,
-                                      arguments: AllPlacesPageArg(
-                                        isDomesticList: false,
-                                        isAboardList: false,
-                                        uid: widget.user.uid,
-                                      ));
-                                });
+                                setState(() {});
                               },
                               text: 'Tất cả',
-                              colorButton: green.withOpacity(0.2),
+                              colorButton: AppColor.green.withOpacity(0.2),
                               image: 'assets/images/iconHome3.png',
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: bigPadding),
+                      SizedBox(height: Constants.bigPadding),
 
                       //
                       Row(
@@ -178,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                      SizedBox(height: bigPadding),
+                      SizedBox(height: Constants.bigPadding),
 
                       //show list places
                       SizedBox(
@@ -189,7 +198,8 @@ class _HomePageState extends State<HomePage> {
                           itemCount: 7,
                           itemBuilder: (context, index) {
                             return Container(
-                              margin: EdgeInsets.only(right: mediumPadding),
+                              margin: EdgeInsets.only(
+                                  right: Constants.mediumPadding),
                               width: size.width * .55,
                               child: Stack(
                                 children: [
@@ -197,9 +207,9 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () => onTapShowDetail(index),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
-                                          bigBorderRadius),
+                                          Constants.bigBorderRadius),
                                       child: Image.asset(
-                                        places[index].image,
+                                        listHotel[index].image[0],
                                         width: double.infinity,
                                         height: 240,
                                         fit: BoxFit.fill,
@@ -207,7 +217,8 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.all(mediumPadding),
+                                    padding:
+                                        EdgeInsets.all(Constants.mediumPadding),
                                     width: double.infinity,
                                     height: double.infinity,
                                     child: Column(
@@ -216,34 +227,19 @@ class _HomePageState extends State<HomePage> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          places[index].namePlace,
+                                          listHotel[index].nameHotel,
                                           style: tStyle.HS16WBold(),
                                         ),
-                                        SizedBox(height: smallestPadding),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.home,
-                                              size: 20,
-                                              color: orange,
-                                            ),
-                                            SizedBox(width: smallestPadding),
-                                            Text(
-                                              places[index].nameHotel,
-                                              style: tStyle.HS14BoldW(),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: smallestPadding),
+                                        SizedBox(
+                                            height: Constants.smallestPadding),
                                         Container(
                                           width: 70,
                                           padding: const EdgeInsets.all(8),
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            color: white.withOpacity(0.3),
+                                            color:
+                                                AppColor.white.withOpacity(0.7),
                                           ),
                                           child: Row(
                                             mainAxisAlignment:
@@ -251,11 +247,11 @@ class _HomePageState extends State<HomePage> {
                                             children: [
                                               Icon(
                                                 Icons.star,
-                                                color: yellow,
+                                                color: AppColor.yellow,
                                               ),
                                               Text(
-                                                places[index].rating,
-                                                style: tStyle.HS12LB(),
+                                                listHotel[index].rating,
+                                                style: tStyle.HS14Bold(),
                                               ),
                                             ],
                                           ),
@@ -269,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                           },
                         ),
                       ),
-                      SizedBox(height: bigPadding),
+                      SizedBox(height: Constants.bigPadding),
                     ],
                   ),
                 ),
@@ -284,13 +280,12 @@ class _HomePageState extends State<HomePage> {
   //function show detail place
   void onTapShowDetail(int index) {
     Navigator.pushNamed(context, DetailPlace.routeName,
-        arguments: DetailPlaceArg(place: places[index], uid: widget.user.uid));
+        arguments: DetailPlaceArg(hotels: hotels[index], uid: widget.user.uid));
   }
 
   //function show all places
   void showAllPlaces() {
-    Navigator.pushNamed(context, AllPlacesPage.routeName,
-        arguments: AllPlacesPageArg(
-            isDomesticList: false, isAboardList: false, uid: widget.user.uid));
+    Navigator.pushNamed(context, AllHotelsPage.routeName,
+        arguments: AllHotelsArg(uid: widget.user.uid));
   }
 }

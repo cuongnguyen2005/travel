@@ -2,6 +2,7 @@ import 'package:travel/components/btns/button_primary.dart';
 import 'package:travel/resource/constant.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class DialogPrimary extends StatelessWidget {
   DialogPrimary({super.key, required this.title, this.onTap});
   String title;
@@ -18,7 +19,7 @@ class DialogPrimary extends StatelessWidget {
       ),
       actions: [
         Padding(
-          padding: EdgeInsets.all(smallPadding),
+          padding: EdgeInsets.all(Constants.smallPadding),
           child: ButtonPrimary(nameButton: 'OK', onTap: onTap),
         )
       ],

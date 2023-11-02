@@ -43,4 +43,9 @@ class UserAccount {
 
   factory UserAccount.fromJson(String source) =>
       UserAccount.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    return 'UserAccount(userName: $userName, password: $password)';
+  }
 }

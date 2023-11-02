@@ -8,8 +8,8 @@ import 'package:travel/components/textformfield/pw_form.dart';
 import 'package:travel/components/textformfield/text_form.dart';
 import 'package:travel/features/screens/bottom_navigation.dart';
 import 'package:travel/features/screens/signup/signup.dart';
-import 'package:travel/features/widgets/appbar.dart';
-import 'package:travel/features/widgets/content_appbar_1.dart';
+import 'package:travel/components/appbar.dart';
+import 'package:travel/components/content/content_appbar_1.dart';
 import 'package:travel/models/user_account.dart';
 import 'package:travel/resource/color.dart';
 import 'package:travel/resource/constant.dart';
@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
   List<UserAccount> userAccountList = [];
 
   void getUserList() async {
-    userAccountList = await getUserAccount();
+    userAccountList = await SharedPreferencesLocal.getUserAccount();
   }
 
   final usernameController = TextEditingController();
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: lightgrey,
+      backgroundColor: AppColor.lightgrey,
       body: Stack(
         children: [
           //
@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
             text: 'Chào mừng bạn quay trở lại!',
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: bigPadding),
+            padding: EdgeInsets.symmetric(horizontal: Constants.bigPadding),
             child: Column(
               children: [
                 const SizedBox(height: 200),
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                           validator: ValidateUntils.validateEmail,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
                         PasswordForm(
                           onTapHidePw: () {
                             setState(() {
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                           nameButton: 'Đăng nhập',
                           onTap: onTapLogin,
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
 
                         //
                         Row(
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 width: double.infinity,
                                 height: 1,
-                                color: grey,
+                                color: AppColor.grey,
                               ),
                             ),
                             Expanded(
@@ -121,25 +121,26 @@ class _LoginPageState extends State<LoginPage> {
                               child: Container(
                                 width: double.infinity,
                                 height: 1,
-                                color: grey,
+                                color: AppColor.grey,
                               ),
                             )
                           ],
                         ),
 
                         //
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
                         Row(
                           children: [
                             Expanded(
                               flex: 1,
                               child: Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(mediumPadding),
+                                padding:
+                                    EdgeInsets.all(Constants.mediumPadding),
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(bigBorderRadius),
-                                    color: white),
+                                    borderRadius: BorderRadius.circular(
+                                        Constants.bigBorderRadius),
+                                    color: AppColor.white),
                                 child: Center(
                                     child: Text(
                                   'Google',
@@ -147,16 +148,17 @@ class _LoginPageState extends State<LoginPage> {
                                 )),
                               ),
                             ),
-                            SizedBox(width: bigPadding),
+                            SizedBox(width: Constants.bigPadding),
                             Expanded(
                               flex: 1,
                               child: Container(
                                 width: double.infinity,
-                                padding: EdgeInsets.all(mediumPadding),
+                                padding:
+                                    EdgeInsets.all(Constants.mediumPadding),
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.circular(bigBorderRadius),
-                                    color: blue),
+                                    borderRadius: BorderRadius.circular(
+                                        Constants.bigBorderRadius),
+                                    color: AppColor.blue),
                                 child: Center(
                                     child: Text(
                                   'Facebook',
@@ -166,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: bigPadding),
+                        SizedBox(height: Constants.bigPadding),
 
                         //
                         Row(

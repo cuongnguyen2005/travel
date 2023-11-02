@@ -1,5 +1,7 @@
 import 'package:travel/components/btns/button_primary.dart';
-import 'package:travel/features/widgets/appbar.dart';
+import 'package:travel/components/appbar.dart';
+import 'package:travel/components/content/content_hotel.dart';
+import 'package:travel/models/user_account.dart';
 import 'package:travel/models/your_book.dart';
 import 'package:travel/resource/color.dart';
 import 'package:travel/resource/constant.dart';
@@ -7,6 +9,7 @@ import 'package:travel/resource/shared_preferences.dart';
 import 'package:travel/resource/typo.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:travel/resource/utils/fomart.dart';
 
 class BookedPage extends StatefulWidget {
   const BookedPage({super.key, required this.uid});
@@ -20,22 +23,35 @@ class _BookedPageState extends State<BookedPage> {
   @override
   void initState() {
     getListBook();
+    getInfoUser();
     super.initState();
   }
 
   List<YourBooked> listYourBook = [];
   void getListBook() async {
-    List<YourBooked> listYourBookStore = await getPlacesBookUid(widget.uid);
+    List<YourBooked> listYourBookStore =
+        await SharedPreferencesLocal.getPlacesBookUid(widget.uid);
     setState(() {
       listYourBook = listYourBookStore;
     });
+  }
+
+  UserAccount? user;
+  void getInfoUser() async {
+    List<UserAccount> listUser = await SharedPreferencesLocal.getUserAccount();
+    for (var element in listUser) {
+      if (element.uid == widget.uid) {
+        setState(() {
+          user = element;
+        });
+      }
+    }
   }
 
   int dayCheck = 1;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -51,84 +67,24 @@ class _BookedPageState extends State<BookedPage> {
                   style: tStyle.HS30(),
                 )),
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.bigPadding),
 
               //
 
               Flexible(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: bigPadding),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: Constants.bigPadding),
                   child: ListView.builder(
                     itemCount: listYourBook.length,
                     itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: bigPadding),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(bigBorderRadius),
-                          color: white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //image
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(bigBorderRadius),
-                                bottomRight: Radius.circular(bigBorderRadius),
-                              ),
-                              child: Image.asset(
-                                listYourBook[index].image,
-                                height: 160,
-                                width: size.width * .8,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-
-                            //content
-                            Container(
-                              padding: EdgeInsets.all(smallPadding),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    listYourBook[index].namePlace,
-                                    style: tStyle.HS20(),
-                                  ),
-                                  SizedBox(height: smallestPadding),
-                                  Container(
-                                    padding:
-                                        EdgeInsets.only(bottom: smallPadding),
-                                    decoration: BoxDecoration(
-                                        border: Border(
-                                            bottom: BorderSide(
-                                                width: 0.5, color: grey))),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.location_on,
-                                          size: 20,
-                                          color: pink,
-                                        ),
-                                        Text(
-                                          listYourBook[index].location,
-                                          style: tStyle.HS12LB(),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: smallPadding),
-                                  Padding(
-                                    padding: EdgeInsets.all(smallPadding),
-                                    child: ButtonPrimary(
-                                      nameButton: 'Thông tin phòng',
-                                      onTap: () => onTapShowInfo(index),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                      return ContentHotelView(
+                        image: listYourBook[index].image,
+                        name: listYourBook[index].nameHotel,
+                        location: listYourBook[index].location,
+                        price: listYourBook[index].price,
+                        isCheckButton: true,
+                        onTap: () => onTapShowInfo(index),
                       );
                     },
                   ),
@@ -171,24 +127,25 @@ class _BookedPageState extends State<BookedPage> {
                 listYourBook[index].nameHotel,
                 style: tStyle.HS18(),
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.bigPadding),
               ClipRRect(
-                borderRadius: BorderRadius.circular(smallBorderRadius),
+                borderRadius:
+                    BorderRadius.circular(Constants.smallBorderRadius),
                 child: Image.asset(
                   listYourBook[index].image,
                   height: 150,
                   fit: BoxFit.fill,
                 ),
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.bigPadding),
               Row(
                 children: [
                   Image.asset('assets/images/checkin.png'),
-                  SizedBox(width: smallPadding),
+                  SizedBox(width: Constants.smallPadding),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Check-in', style: tStyle.HS12LB()),
+                      Text('Nhận phòng', style: tStyle.HS12LB()),
                       Text(
                           DateFormat.MMMEd()
                               .format(listYourBook[index].dateTimeCheckin),
@@ -197,15 +154,15 @@ class _BookedPageState extends State<BookedPage> {
                   ),
                 ],
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.bigPadding),
               Row(
                 children: [
                   Image.asset('assets/images/checkout.png'),
-                  SizedBox(width: smallPadding),
+                  SizedBox(width: Constants.smallPadding),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Check-out', style: tStyle.HS12LB()),
+                      Text('Trả phòng', style: tStyle.HS12LB()),
                       Text(
                           DateFormat.MMMEd()
                               .format(listYourBook[index].dateTimeCheckout),
@@ -214,40 +171,59 @@ class _BookedPageState extends State<BookedPage> {
                   ),
                 ],
               ),
-              SizedBox(height: biggerPadding),
+              SizedBox(height: Constants.biggerPadding),
               Container(
                 height: 0.5,
                 width: double.infinity,
-                color: grey,
+                color: AppColor.grey,
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.bigPadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('1 ngày', style: tStyle.HS12LB()),
-                  Text('\$${listYourBook[index].price}',
+                  Text('Tên', style: tStyle.HS12LB()),
+                  Text(user!.name, style: tStyle.HS12LB()),
+                ],
+              ),
+              SizedBox(height: Constants.mediumPadding),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('1 đêm', style: tStyle.HS12LB()),
+                  Text(
+                      '${FomartUtils.formatMoney(listYourBook[index].price)} VND',
                       style: tStyle.HS12LB()),
                 ],
               ),
-              SizedBox(height: bigPadding),
+              SizedBox(height: Constants.mediumPadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Số ngày', style: tStyle.HS12LB()),
+                  Text('Số đêm', style: tStyle.HS12LB()),
                   Text('$dayCheck', style: tStyle.HS12LB()),
                 ],
               ),
-              SizedBox(height: smallPadding),
+              SizedBox(height: Constants.mediumPadding),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Số người', style: tStyle.HS12LB()),
+                  Text('${listYourBook[index].passenger}',
+                      style: tStyle.HS12LB()),
+                ],
+              ),
+              SizedBox(height: Constants.smallPadding),
               Container(
                 height: 0.5,
                 width: double.infinity,
-                color: grey,
+                color: AppColor.grey,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total', style: tStyle.HS14Bold()),
-                  Text('\$${listYourBook[index].price * dayCheck}',
+                  Text('Tổng', style: tStyle.HS14Bold()),
+                  Text(
+                      '${FomartUtils.formatMoney(listYourBook[index].totalPrice)} VND',
                       style: tStyle.HS14Bold()),
                 ],
               ),
@@ -255,7 +231,7 @@ class _BookedPageState extends State<BookedPage> {
           ),
           actions: [
             Padding(
-              padding: EdgeInsets.all(bigPadding),
+              padding: EdgeInsets.all(Constants.bigPadding),
               child: ButtonPrimary(nameButton: 'Ok', onTap: onTapBack),
             )
           ],

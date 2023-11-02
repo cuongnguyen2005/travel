@@ -1,5 +1,5 @@
 import 'package:travel/features/screens/booked_page.dart';
-import 'package:travel/features/screens/favorite_page.dart';
+import 'package:travel/features/screens/favorite_hotels.dart';
 import 'package:travel/features/screens/home.dart';
 import 'package:travel/features/screens/person_page.dart';
 import 'package:travel/models/user_account.dart';
@@ -29,16 +29,16 @@ class _BottomNavigationPageState extends State<BottomNavigationPage> {
     ];
     return Scaffold(
       bottomNavigationBar: Container(
-        color: white,
+        color: AppColor.white,
         child: Padding(
-          padding: EdgeInsets.all(mediumPadding),
+          padding: EdgeInsets.all(Constants.mediumPadding),
           child: GNav(
             selectedIndex: currentIndex,
-            padding: EdgeInsets.all(mediumPadding),
-            backgroundColor: white,
-            activeColor: themeColor,
-            tabBackgroundColor: themeColor.withOpacity(0.2),
-            color: grey,
+            padding: EdgeInsets.all(Constants.mediumPadding),
+            backgroundColor: AppColor.white,
+            activeColor: AppColor.themeColor,
+            tabBackgroundColor: AppColor.themeColor.withOpacity(0.2),
+            color: AppColor.grey,
             gap: 8,
             tabs: const [
               GButton(

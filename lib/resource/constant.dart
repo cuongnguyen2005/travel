@@ -1,8 +1,10 @@
-double smallestPadding = 5;
-double smallPadding = 10;
-double mediumPadding = 16;
-double bigPadding = 20;
-double biggerPadding = 32;
-double smallBorderRadius = 5;
-double mediumBorderRadius = 10;
-double bigBorderRadius = 25;
+class Constants {
+  static double smallestPadding = 5;
+  static double smallPadding = 10;
+  static double mediumPadding = 16;
+  static double bigPadding = 20;
+  static double biggerPadding = 32;
+  static double smallBorderRadius = 5;
+  static double mediumBorderRadius = 10;
+  static double bigBorderRadius = 25;
+}

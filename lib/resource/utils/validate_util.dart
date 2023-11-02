@@ -30,5 +30,6 @@ class ValidateUntils {
   static String? validateName(String? value) {
     // return null;
     if ((value ?? "").isEmpty) return "Tên không được để trống";
+    return null;
   }
 }
