@@ -58,32 +58,40 @@ class _AllHotelsPageState extends State<AllHotelsPage> {
   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
           const AppBarWidget(),
+          ContentAppBar1(
+            isFull: false,
+            onTap: onTapBack,
+            title: 'Khách sạn',
+          ),
+          SizedBox(height: Constants.mediumPadding),
+          Padding(
+            padding: EdgeInsets.only(
+              left: Constants.bigPadding,
+              right: Constants.bigPadding,
+              top: size.height * .22,
+            ),
+            child: TextForm(
+              onChanged: (value) => getHotelListSearch(value),
+              controller: searchController,
+              autofocus: false,
+              text: 'Tìm kiếm theo khu vực',
+              prefixIcon: const Icon(Icons.search),
+            ),
+          ),
           Column(
             children: [
-              ContentAppBar1(
-                isFull: false,
-                onTap: onTapBack,
-                title: 'Khách sạn',
-              ),
-              SizedBox(height: Constants.mediumPadding),
-              Padding(
-                padding: EdgeInsets.all(Constants.bigPadding),
-                child: TextForm(
-                  onChanged: (value) => getHotelListSearch(value),
-                  controller: searchController,
-                  autofocus: false,
-                  text: 'Tìm kiếm theo khu vực',
-                  prefixIcon: const Icon(Icons.search),
-                ),
-              ),
               Flexible(
                 child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: Constants.bigPadding),
+                  padding: EdgeInsets.only(
+                    left: Constants.bigPadding,
+                    right: Constants.bigPadding,
+                    top: size.height * .3 + Constants.bigPadding,
+                  ),
                   child: ListView.builder(
                     padding: EdgeInsets.zero,
                     itemCount: listHotel.length,

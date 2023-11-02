@@ -55,7 +55,7 @@ class _FavoritePageState extends State<FavoritePage> {
               ),
               SizedBox(height: Constants.bigPadding),
 
-              //
+              //body
               Flexible(
                 child: Container(
                   padding:
